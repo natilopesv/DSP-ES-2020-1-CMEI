@@ -4,7 +4,7 @@ Projeto desenvolvido na turma de Engenharia de Software,
 para disciplina de Desenvolvimento de Software para Persistência, realizado pelos alunos:
 
 - Natália Lopes da Silva
-- João Paulo Oliveira Cabral
+- Cleydoson José de Figueiredo Junior
 - Erik Raphael Ribeiro da Costa
 
 
