@@ -1,28 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using DSP_ES_2020_1_CMEI.AuthorizeCustom;
 using System.Web.Mvc;
 
 namespace DSP_ES_2020_1_CMEI.Controllers
 {
     public class HomeController : Controller
     {
+        [CustomAuthorize]
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult StudentsRoutine()
         {
             ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
             return View();
         }

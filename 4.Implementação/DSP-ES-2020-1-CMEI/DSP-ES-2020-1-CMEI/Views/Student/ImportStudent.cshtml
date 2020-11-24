@@ -1,0 +1,69 @@
+﻿@model DSP_ES_2020_1_CMEI.Models.StudentModel
+
+@{
+    ViewBag.Title = "ImportStudent";
+}
+
+<br />
+<!--Alert Messages-->
+@Html.Partial("~/Views/Shared/_Message.cshtml")
+
+<div class="row">
+    <div class="col-md-6">
+        <strong style="font-size:25px">Lista de Alunos</strong>
+    </div>
+
+    @using (Html.BeginForm("ImportStudent", "Student", FormMethod.Post, new { id = "formStudent", enctype = "multipart/form-data" }))
+    {
+        <input name="idLoginAccess" id="idLoginAccess" value="@Model.idLoginAccess" style="display:none"/>
+
+        <div class="col-md-4">
+            <div class="form-group pull-righ">
+                <label for="exampleFormControlFile1">Importar arquivo</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1" name="arquivoCsv">
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-lg btn-info pull-right">
+                <span class="glyphicon glyphicon-import"></span>
+                Importar Alunos
+            </button>
+        </div>
+    }
+</div>
+
+<div class="panel">
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="bg-info">Nº Matrícula</th>
+                    <th class="bg-info">Nome</th>
+                    <th class="bg-info">Data de Nascimento</th>
+                    <th class="bg-info">Turma</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.listStudentModel != null && Model.listStudentModel.Count > 0)
+                {
+                    foreach (var item in Model.listStudentModel)
+                    {
+                        <tr>
+                            <td>@item.registrationNumber</td>
+                            <td>@item.nameStudent</td>
+                            <td>@string.Format("{0:dd/MM/yyyy}", item.birthDate)</td>
+                            <td>---</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" style="text-align:center">Nenhum aluno foi importado...</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
