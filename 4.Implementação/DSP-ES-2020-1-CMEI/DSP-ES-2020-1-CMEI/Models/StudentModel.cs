@@ -1,5 +1,5 @@
-﻿using Aplicacao;
-using Dominio;
+﻿using _2_Application;
+using _3_Domain;
 using DSP_ES_2020_1_CMEI.Util;
 using OfficeOpenXml;
 using System;
@@ -22,11 +22,11 @@ namespace DSP_ES_2020_1_CMEI.Models
 
  */
 
-        private StudentAplication appStudent;
+        private StudentApplication appStudent;
 
         public List<StudentModel> ListStudent(int idLoginAccess)
         {
-            appStudent = new StudentAplication();
+            appStudent = new StudentApplication();
             List<StudentModel> listStudent = new List<StudentModel>();
 
             try
@@ -130,7 +130,7 @@ namespace DSP_ES_2020_1_CMEI.Models
 
                 if (list.Count > 0)
                 {
-                    appStudent = new StudentAplication();
+                    appStudent = new StudentApplication();
                     msgReturn = appStudent.InsertListStudent(list, studentModel.idLoginAccess);
                 }
                 else

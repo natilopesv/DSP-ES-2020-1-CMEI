@@ -1,5 +1,5 @@
-﻿using Aplication;
-using DSP_ES_2020_1_CMEI.Domain;
+﻿using _2_Application;
+using _3_Domain;
 using System;
 using System.Data;
 
@@ -14,13 +14,13 @@ namespace DSP_ES_2020_1_CMEI.Models
 
  */
 
-        private LoginAplication appLogin;
+        private LoginApplication appLogin;
 
         public bool IsValidLogin(LoginModel loginModel)
         {
             try
             {
-                appLogin = new LoginAplication();
+                appLogin = new LoginApplication();
 
                 if (appLogin.QuerieLogin(loginModel.emailAccess, loginModel.passwordAccess).Rows.Count > 0)
                 {
@@ -41,7 +41,7 @@ namespace DSP_ES_2020_1_CMEI.Models
         {
             try
             {
-                appLogin = new LoginAplication();
+                appLogin = new LoginApplication();
                 int idLoginAccess = 0;
 
                 foreach (DataRow linha in appLogin.SearchIdLoginAccessWithEmail(emailAccess).Rows)

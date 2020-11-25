@@ -12,5 +12,8 @@
 
 
         public const string SuccessImportStudent = "Seus alunos foram importados...";
+
+        public const string SuccessInsertClassroom = "Sua Turma foi inserida...";
+
     }
 }

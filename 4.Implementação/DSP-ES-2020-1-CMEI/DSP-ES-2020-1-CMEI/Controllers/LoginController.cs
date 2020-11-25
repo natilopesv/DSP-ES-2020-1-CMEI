@@ -1,6 +1,4 @@
-﻿using Aplication;
-using DSP_ES_2020_1_CMEI.Domain;
-using DSP_ES_2020_1_CMEI.Enums;
+﻿using DSP_ES_2020_1_CMEI.Enums;
 using DSP_ES_2020_1_CMEI.Models;
 using DSP_ES_2020_1_CMEI.Util;
 using System;
