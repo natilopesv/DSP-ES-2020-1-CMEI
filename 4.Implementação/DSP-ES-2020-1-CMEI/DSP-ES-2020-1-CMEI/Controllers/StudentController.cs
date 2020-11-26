@@ -2,10 +2,9 @@
 using DSP_ES_2020_1_CMEI.Enums;
 using DSP_ES_2020_1_CMEI.Models;
 using DSP_ES_2020_1_CMEI.Util;
+using RandomSolutions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.IO;
 using System.Web.Mvc;
 
 namespace DSP_ES_2020_1_CMEI.Controllers
@@ -25,7 +24,7 @@ namespace DSP_ES_2020_1_CMEI.Controllers
 
         [CustomAuthorize]
         [HttpGet]
-        public ActionResult ImportStudent()
+        public ActionResult ListStudent()
         {
             studentBusinessModel = new StudentModel();
             studentModel = new StudentModel();
@@ -51,7 +50,7 @@ namespace DSP_ES_2020_1_CMEI.Controllers
 
         [CustomAuthorize]
         [HttpPost]
-        public ActionResult ImportStudent(StudentModel form)
+        public JsonResult ImportStudent(StudentModel form)
          {
             studentBusinessModel = new StudentModel();
             studentModel = new StudentModel();
@@ -82,14 +81,31 @@ namespace DSP_ES_2020_1_CMEI.Controllers
                     }
                 }
 
-                return View(studentModel);
+                return Json(new { msg = ViewBag.Message, type = ViewBag.MessageType }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                ViewBag.MessageType = MessageType.Error;
-                ViewBag.Message = ex.Message;
+                return Json(new { msg = ex.Message, type = MessageType.Success }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
-                return View(studentModel);
+        [CustomAuthorize]
+        [HttpPost]
+        public JsonResult ExportStudent(StudentModel form)
+        {
+            studentBusinessModel = new StudentModel();
+            studentModel = new StudentModel();
+
+            try
+            {
+                byte[] excel = studentBusinessModel.ExportStudent(form);
+                string excelBase64 = Convert.ToBase64String(excel);
+
+                return Json(new { msg = "Alunos exportados", type = MessageType.Success, excelBase64 }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { msg = ex.Message, type = MessageType.Success }, JsonRequestBehavior.AllowGet);
             }
         }
     }

@@ -2,8 +2,8 @@
 {
     public enum MessageType
     {
-        Error,
+        Success,
         Warning,
-        Success
+        Error
     }
 }

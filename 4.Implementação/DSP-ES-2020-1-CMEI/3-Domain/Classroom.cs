@@ -15,6 +15,10 @@ namespace _3_Domain
 
         public ClassroomStudent ClassroomStudent { get; set; }
 
+        public TeachingPlan TeachingPlan { get; set; }
+
         public List<ClassroomStudent> listClassroomStudent { get; set; }
+
+        public List<TeachingPlan> listTeachingPlan { get; set; }
     }
 }

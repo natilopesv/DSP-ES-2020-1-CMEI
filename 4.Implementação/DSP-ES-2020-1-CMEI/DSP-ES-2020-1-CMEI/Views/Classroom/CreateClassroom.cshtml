@@ -78,6 +78,44 @@
         </div>
     </div>
 
+    <h3 style="padding-top:15px"><i class="far fa-file-alt"></i> Plano de Ensino</h3>
+
+    <div class="panel">
+        <div class="panel-body">
+            <div style="padding-left:30px; padding-right:30px">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label> Descrição da atividade: </label>
+                            @Html.EditorFor(model => model.TeachingPlan.activityDescription, new { HtmlAttributes = new { @class = "form-control", @placeholder = "Atividade: Pintando o alfabeto", @id = "activityDescription" } })
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div style="text-align: left;">
+                            <label><br /></label>
+                            <div class="form-group">
+                                <button id="btnTeachingPlan" onclick="addTeachingPlanTable()" type="button" class="btn btn-info"><i class="fas fa-plus-circle"></i> Adicionar </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-hover" id="tblTeachingPlan">
+                    <thead>
+                        <tr>
+                            <th class="bg-info">#</th>
+                            <th class="bg-info">Descrição da atividade</th>
+                            <th class="bg-info">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <button type="submit" class="btn btn-lg btn-info pull-right">
         <i class="fas fa-save"></i>
         Salvar Turma
@@ -85,17 +123,18 @@
 }
 
 <script>
-    var cont = 0;
+    var contStudent = 0;
+    var contTeachingPlan = 0;
 
     function addStudentTable() {
         var idStudent = $("#student option:selected").val();
         var nameStudent = $("#student option:selected").text();
 
-        cont++;
+        contStudent++;
 
         var tr = $('<tr></tr>');
 
-        tr.append('<td>' + cont + '</td>');
+        tr.append('<td>' + contStudent + '</td>');
         tr.append('<td>' + idStudent + '</td>');
         tr.append('<td>' + nameStudent + '</td>');
         tr.append('<td><button class="btn btn-xs btn-danger" onclick="removeStudent(this)" type="button"><i class="fas fa-minus-circle"></i> Remover</button></td>');
@@ -103,7 +142,33 @@
         $("#tblStudent").append(tr);
     }
 
+    function addTeachingPlanTable() {
+        var activityDescription = $("#activityDescription").val();
+
+        contTeachingPlan++;
+
+        var tr = $('<tr></tr>');
+
+        tr.append('<td>' + contTeachingPlan + '</td>');
+        tr.append('<td>' + activityDescription + '</td>');
+        tr.append('<td><button class="btn btn-xs btn-danger" onclick="removeTeachingPlan(this)" type="button"><i class="fas fa-minus-circle"></i> Remover</button></td>');
+
+        $("#tblTeachingPlan").append(tr);
+
+        $("#activityDescription").val("");
+        $("#activityDescription").focus();
+    }
+
+
     function removeStudent(handler) {
+        var tr = $(handler).closest('tr');
+
+        tr.fadeOut(300, function () {
+            tr.remove();
+        });
+    };
+
+    function removeTeachingPlan(handler) {
         var tr = $(handler).closest('tr');
 
         tr.fadeOut(300, function () {
@@ -118,9 +183,9 @@
             return false;
         }
         else {
-         
             var form = new Object();
             form.listClassroomStudent = new Array();
+            form.listTeachingPlan = new Array();
 
             form.idLoginAccess = $("#idLoginAccess").val();
             form.nameClassroom = $("#nameClassroom").val();
@@ -134,6 +199,14 @@
                 form.listClassroomStudent.push(obj);
             });
 
+            $('#tblTeachingPlan > tbody > tr').each(function (i, linha) {
+                var obj = new Object();
+
+                obj.activityDescription = $(linha).find('td:eq(1)').text();
+
+                form.listTeachingPlan.push(obj);
+            });
+
             $.ajax({
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
@@ -141,21 +214,21 @@
                 url: '../Classroom/CreateClassroom',
                 data: JSON.stringify({ form: form }),
                 beforeSend: function () {
-                    
+
                 },
                 success: function (data) {
-                    if (data.type === "Success") {
-                        window.location.href = '../Classroom/ListClassroom';
+                    if (data.type === 0) {
+                        confirmMsgSuccess(data.msg, '../Classroom/ListClassroom');
                     }
-                    else if (data.type === "Warning") {
-                       
+                    else if (data.type === 1) {
+                        confirmMsgWarning(data.msg);
                     }
                     else {
-                       
+                        confirmMsgError(data.msg);
                     }
                 },
                 error: function (request, status, error) {
-                   
+                    confirmMsgError("Erro desconhecido");
                 }
             });
         }

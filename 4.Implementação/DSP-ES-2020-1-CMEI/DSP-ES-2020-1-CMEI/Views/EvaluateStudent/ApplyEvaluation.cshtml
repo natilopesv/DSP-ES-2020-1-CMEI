@@ -1,0 +1,55 @@
+﻿@model DSP_ES_2020_1_CMEI.Models.EvaluateStudentModel
+
+@{
+    ViewBag.Title = "ApplyEvaluation";
+}
+
+<input name="idLoginAccess" id="idLoginAccess" style="display:none" value="@Model.idLoginAccess" />
+
+<br />
+<h3><i class="fas fa-user"></i> Avaliação do Aluno</h3>
+
+<div class="panel">
+    <div class="panel-body">
+        <div style="padding-left:30px; padding-right:30px">
+            <p><strong>N° matrícula:</strong> @Model.StudentModel.registrationNumber</p>
+            <p><strong>Nome:</strong> @Model.StudentModel.nameStudent</p>
+            <p><strong>Turma:</strong> @Model.StudentModel.nameClassroomModel</p>
+        </div>
+    </div>
+</div>
+
+<div class="panel">
+    <div class="panel-body">
+        <div style="padding-left:30px; padding-right:30px">
+            <table class="table table-hover" id="tblEvaluateStudentGrade">
+                <thead>
+                    <tr>
+                        <th class="bg-info">#</th>
+                        <th class="bg-info">Descrição</th>
+                        <th class="bg-info">Nota</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.listEvaluateStudentGrade.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i+1)</td>
+                            <td>@Model.listEvaluateStudentGrade[i].TeachingPlan.activityDescription</td>
+                            <td>
+                                <input type="tel" class="form-control" id="grade-@Model.listEvaluateStudentGrade[i].idTeachingPlan" placeholder="0-10">
+                            </td>
+
+                            <td style="display:none">@Model.listEvaluateStudentGrade[i].idTeachingPlan</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<button type="submit" class="btn btn-lg btn-info pull-right">
+    <i class="fas fa-save"></i>
+    Salvar Avaliação
+</button>

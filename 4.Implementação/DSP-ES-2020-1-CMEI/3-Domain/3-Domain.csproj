@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="Classroom.cs" />
     <Compile Include="ClassroomStudent.cs" />
+    <Compile Include="EvaluateStudent.cs" />
+    <Compile Include="EvaluateStudentGrade.cs" />
+    <Compile Include="TeachingPlan.cs" />
     <Compile Include="LoginAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Student.cs" />

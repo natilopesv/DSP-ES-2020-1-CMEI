@@ -1,7 +1,78 @@
-﻿
+﻿@model DSP_ES_2020_1_CMEI.Models.EvaluateStudentModel
+
 @{
     ViewBag.Title = "ListEvaluateStudent";
 }
 
-<h2>ListEvaluateStudent</h2>
+<br />
 
+<div class="row">
+    <div class="col-md-6">
+        <h2>Avaliar Alunos</h2>
+        <i>Escolha na lista abaixo um aluno que deseja avaliar</i>
+    </div>
+</div>
+
+@using (Html.BeginForm("ListEvaluateStudent", "EvaluateStudent", FormMethod.Post, new { id = "formListEvaluateStudent" }))
+{
+    <div class="panel" style="margin-top:20px">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Turmas:</label>
+                        @Html.DropDownListFor(model => model.idClassroom, ViewBag.listClassroom as IEnumerable<SelectListItem>, "Selecione", new { @class = "form-control form-control-sm chosen-select", @id = "idClassroom" })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div style="text-align: left;">
+                        <label><br /></label>
+                        <div class="form-group">
+                            <button id="btnListEvaluateStudent" type="submit" class="btn btn-info"><i class="fas fa-search"></i> Pesquisar</button>
+                            <button id="btnGenerateReport" type="button" class="btn btn-primary"><i class="fas fa-tasks"></i> Gerar relatório</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <table class="table table-hover" id="tblStudent">
+                <thead>
+                    <tr>
+                        <th class="bg-info">Nº Matrícula</th>
+                        <th class="bg-info">Nome</th>
+                        <th class="bg-info">Turma</th>
+                        <th class="bg-info">(%) Avalidado</th>
+                        <th class="bg-info">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.listEvaluateStudentModel != null && Model.listEvaluateStudentModel.Count > 0)
+                    {
+                        foreach (var item in Model.listEvaluateStudentModel)
+                        {
+                            <tr>
+                                <td>@item.ClassroomModel.ClassroomStudent.Student.registrationNumber</td>
+                                <td>@item.ClassroomModel.ClassroomStudent.Student.nameStudent</td>
+                                <td>@item.ClassroomModel.nameClassroom</td>
+                                <td>@item.percEvaluateModel %</td>
+                                <td><a class="btn btn-xs btn-info" href="../EvaluateStudent/ApplyEvaluation?idStudent=@item.idStudent&idClassroom=@item.idClassroom"><i class="far fa-edit"></i> Avaliar</a></td>
+
+                                <td style="display:none">@item.idStudent</td>
+                                <td style="display:none">@item.idClassroom</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" style="text-align:center">Nenhum aluno está disponível para ser avaliado...</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

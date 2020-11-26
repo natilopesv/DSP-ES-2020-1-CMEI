@@ -2,10 +2,12 @@
 using _3_Domain;
 using DSP_ES_2020_1_CMEI.Util;
 using OfficeOpenXml;
+using RandomSolutions;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Web;
 
 namespace DSP_ES_2020_1_CMEI.Models
@@ -14,6 +16,8 @@ namespace DSP_ES_2020_1_CMEI.Models
     {
         /* View attr
         */
+
+        public string nameClassroomModel { get; set; }
 
         public List<StudentModel> listStudentModel { get; set; }
 
@@ -31,7 +35,7 @@ namespace DSP_ES_2020_1_CMEI.Models
 
             try
             {
-                foreach (DataRow linha in appStudent.QuerieStudent(idLoginAccess).Rows)
+                foreach (DataRow linha in appStudent.QuerieAllStudent(idLoginAccess).Rows)
                 {
                     StudentModel obj = new StudentModel();
 
@@ -40,10 +44,52 @@ namespace DSP_ES_2020_1_CMEI.Models
                     obj.registrationNumber = Convert.ToString(linha["registrationNumber"]);
                     obj.birthDate = Convert.ToDateTime(linha["birthDate"]);
 
+                    if (!linha["nameClassroom"].ToString().Equals(""))
+                    {
+                        obj.nameClassroomModel = Convert.ToString(linha["nameClassroom"]);
+                    }
+                    else
+                    {
+                        obj.nameClassroomModel = "---";
+                    }
+
                     listStudent.Add(obj);
                 }
 
                 return listStudent;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public StudentModel SearchStudent(int idStudent)
+        {
+            appStudent = new StudentApplication();
+
+            try
+            {
+                StudentModel obj = new StudentModel();
+
+                foreach (DataRow linha in appStudent.QuerieStudent(idStudent).Rows)
+                {
+                    obj.idStudent = Convert.ToInt32(linha["idStudent"]);
+                    obj.nameStudent = Convert.ToString(linha["nameStudent"]);
+                    obj.registrationNumber = Convert.ToString(linha["registrationNumber"]);
+                    obj.birthDate = Convert.ToDateTime(linha["birthDate"]);
+
+                    if (!linha["nameClassroom"].ToString().Equals(""))
+                    {
+                        obj.nameClassroomModel = Convert.ToString(linha["nameClassroom"]);
+                    }
+                    else
+                    {
+                        obj.nameClassroomModel = "---";
+                    }
+                }
+
+                return obj;
             }
             catch (Exception)
             {
@@ -144,6 +190,22 @@ namespace DSP_ES_2020_1_CMEI.Models
             {
                 throw;
             }
+        }
+
+        public byte[] ExportStudent(StudentModel studentModel)
+        {
+            var list = from item in studentModel.listStudentModel
+                       select new
+                       {
+                           registrationNumber = item.registrationNumber,
+                           nameStudent = item.nameStudent,
+                           birthDate = item.birthDate,
+                           nameClassroom = item.nameClassroomModel
+                       };
+
+            byte[] excel = list.ToExcel();
+
+            return excel;
         }
     }
 }

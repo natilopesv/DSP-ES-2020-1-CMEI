@@ -92,9 +92,9 @@ namespace DSP_ES_2020_1_CMEI.Controllers
 
                 return Json(new { msg = ViewBag.Message, type = ViewBag.MessageType }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                return Json(new { msg = ex.Message, type = MessageType.Success }, JsonRequestBehavior.AllowGet);
             }
         }
 

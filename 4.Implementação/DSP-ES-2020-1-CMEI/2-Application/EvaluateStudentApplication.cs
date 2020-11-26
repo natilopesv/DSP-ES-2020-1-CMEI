@@ -1,13 +1,12 @@
 ﻿using _1_Repository;
 using _3_Domain;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace _2_Application
 {
-    public class StudentApplication
+    public class EvaluateStudentApplication
     {
         private Context context;
         private SqlConnection connection;
@@ -17,7 +16,7 @@ namespace _2_Application
         /* Actions
  */
 
-        public string InsertListStudent(List<Student> list, int idLoginAccess)
+        public string InsertListEvaluateStudent(EvaluateStudent evaluateStudent)
         {
             string retorno = "";
             int validation = 0;
@@ -34,16 +33,38 @@ namespace _2_Application
 
             try
             {
-                foreach (var item in list)
+
+                cmd.Parameters.Clear();
+                cmd.CommandText = "UspCrudEvaluateStudent";
+                context.CleanParameter();
+
+                context.AddParameter("@idClassroom", evaluateStudent.idClassroom);
+                context.AddParameter("@idStudent", evaluateStudent.idStudent);
+                context.AddParameter("@evaluationDate", evaluateStudent.evaluationDate);
+                context.AddParameter("@idLoginAccess", evaluateStudent.idLoginAccess);
+
+                context.AddParameter("@Action", 1);
+
+                //Adicionar Parametros
+                foreach (SqlParameter itemParametros in context.parameterCollection)
+                {
+                    cmd.Parameters.Add(new SqlParameter(itemParametros.ParameterName, itemParametros.Value));
+                }
+
+                retorno = "";
+                retorno = cmd.ExecuteScalar().ToString();
+                int idEvaluateStudent = Convert.ToInt32(retorno);
+
+
+                foreach (var item in evaluateStudent.listEvaluateStudentGrade)
                 {
                     cmd.Parameters.Clear();
-                    cmd.CommandText = "UspCrudStudent";
+                    cmd.CommandText = "UspCrudEvaluateStudentGrade";
                     context.CleanParameter();
 
-                    context.AddParameter("@registrationNumber", item.registrationNumber);
-                    context.AddParameter("@nameStudent", item.nameStudent);
-                    context.AddParameter("@birthDate", item.birthDate);
-                    context.AddParameter("@idLoginAccess", idLoginAccess);
+                    context.AddParameter("@idEvaluateStudent", idEvaluateStudent);
+                    context.AddParameter("@idTeachingPlan", item.idTeachingPlan);
+                    context.AddParameter("@grade", item.grade);
 
                     context.AddParameter("@Action", 1);
 
@@ -57,6 +78,7 @@ namespace _2_Application
                     retorno = cmd.ExecuteScalar().ToString();
                     validation = Convert.ToInt32(retorno);
                 }
+
 
                 insertValidation.Commit();
 
@@ -87,31 +109,32 @@ namespace _2_Application
         /* Queries
          */
 
-        public DataTable QuerieAllStudent(int idLoginAccess)
+        public DataTable QuerieEvaluateStudent(int idClassroom)
         {
             DataTable dt;
             context = new Context();
             context.CleanParameter();
 
             context.AddParameter("@Action", 4);
-            context.AddParameter("@idLoginAccess", idLoginAccess);
+            context.AddParameter("@idClassroom", idClassroom);
 
             dt = new DataTable();
-            dt = context.ExecuteCommandReturnWithParameter(CommandType.StoredProcedure, "UspCrudStudent");
+            dt = context.ExecuteCommandReturnWithParameter(CommandType.StoredProcedure, "UspCrudEvaluateStudent");
             return dt;
         }
 
-        public DataTable QuerieStudent(int idStudent)
+        public DataTable QuerieEvaluateStudentGrade(int idClassroom, int idStudent)
         {
             DataTable dt;
             context = new Context();
             context.CleanParameter();
 
             context.AddParameter("@Action", 5);
+            context.AddParameter("@idClassroom", idClassroom);
             context.AddParameter("@idStudent", idStudent);
 
             dt = new DataTable();
-            dt = context.ExecuteCommandReturnWithParameter(CommandType.StoredProcedure, "UspCrudStudent");
+            dt = context.ExecuteCommandReturnWithParameter(CommandType.StoredProcedure, "UspCrudEvaluateStudent");
             return dt;
         }
 

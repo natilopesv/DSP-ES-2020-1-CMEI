@@ -78,6 +78,29 @@ namespace _2_Application
                     validation = Convert.ToInt32(retorno);
                 }
 
+                foreach (var item in classroom.listTeachingPlan)
+                {
+                    cmd.Parameters.Clear();
+                    cmd.CommandText = "UspCrudTeachingPlan";
+                    context.CleanParameter();
+
+                    context.AddParameter("@idClassroom", idClassroom);
+                    context.AddParameter("@activityDescription", item.activityDescription);
+
+                    context.AddParameter("@Action", 1);
+
+                    //Adicionar Parametros
+                    foreach (SqlParameter itemParametros in context.parameterCollection)
+                    {
+                        cmd.Parameters.Add(new SqlParameter(itemParametros.ParameterName, itemParametros.Value));
+                    }
+
+                    retorno = "";
+                    retorno = cmd.ExecuteScalar().ToString();
+                    validation = Convert.ToInt32(retorno);
+                }
+
+
                 insertValidation.Commit();
 
                 return retorno;
