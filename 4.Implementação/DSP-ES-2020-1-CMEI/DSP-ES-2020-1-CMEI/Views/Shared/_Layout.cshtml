@@ -7,8 +7,15 @@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    @Styles.Render("~/Vendor/fontawesome-free-5.6.3-web/css/all.min.css")
+    @Scripts.Render("~/Vendor/fontawesome-free-5.6.3-web/js/all.min.js")
+
+    @Styles.Render("~/Content/Montserrat/Montserrat.css")
+    @Styles.Render("~/Vendor/chosen/css/bootstrap-chosen.css")
+    @Styles.Render("~/Vendor/JqueryConfirm/css/jquery-confirm.css")
 </head>
-<body>
+<body style="background-color: #f2f2f2; font-family: 'Montserrat' !important">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -19,23 +26,43 @@
                 </button>
                 @Html.ActionLink("DSP-ES-2020-1-CMEI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Entrar", "SignIn", "Login")</li>
-                </ul>
-            </div>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Sair", "SignOut", "Login")</li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Entrar", "SignIn", "Login")</li>
+                    </ul>
+                </div>
+            }
+
         </div>
     </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/Vendor/chosen/js/chosen.js"></script>
+    <script src="~/Vendor/chosen/js/chosenResponsive.js"></script>
+    <script src="~/Vendor/chosen/js/chosenValidate.js"></script>
+    <script src="~/Vendor/JqueryConfirm/js/jquery-confirm.min.js"></script>
+    <script src="~/Scripts/MessageConfirm.js"></script>
+
+    @Scripts.Render("~/bundles/bootstrap")
+
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

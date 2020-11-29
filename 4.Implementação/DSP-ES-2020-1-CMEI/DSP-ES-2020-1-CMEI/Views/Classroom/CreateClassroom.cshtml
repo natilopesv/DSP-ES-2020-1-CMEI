@@ -1,0 +1,236 @@
+﻿@model DSP_ES_2020_1_CMEI.Models.ClassroomModel
+
+@{
+    ViewBag.Title = "CreateClassroom";
+}
+
+@using (Html.BeginForm("CreateClassroom", "Classroom", FormMethod.Post, new { id = "formClassroom" }))
+{
+    <input name="idLoginAccess" id="idLoginAccess" style="display:none" value="@Model.idLoginAccess" />
+
+    <br />
+    <h3><i class="fas fa-file-signature"></i> Dados da Turma</h3>
+
+    <div class="panel">
+        <div class="panel-body">
+            <div style="padding-left:30px; padding-right:30px">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label> Nome da turma: </label>
+                            @Html.EditorFor(model => model.nameClassroom, new { HtmlAttributes = new { @class = "form-control", @placeholder = "Turma A", @required = "", @autofocus = "" } })
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>* Turno: </label>
+                            @Html.DropDownListFor(model => model.shiftClassroom, new List<SelectListItem>
+                            {
+                                new SelectListItem{Text = "Matutino", Value = "Matutino"},
+                                new SelectListItem{Text = "Vespertino", Value = "Vespertino"},
+                                new SelectListItem{Text = "Noturno", Value = "Noturno"},
+                            }, "Selecione", new { @class = "form-control form-control-sm", @required = "" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 style="padding-top:15px"><i class="fas fa-users"></i> Alunos da Turma</h3>
+
+    <div class="panel">
+        <div class="panel-body">
+            <div style="padding-left:30px; padding-right:30px">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>Alunos:</label>
+                            @Html.DropDownListFor(model => model.ClassroomStudent.idStudent, ViewBag.listClassroomStudent as IEnumerable<SelectListItem>, "Selecione", new { @class = "form-control form-control-sm chosen-select", @id = "student" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div style="text-align: left;">
+                            <label><br /></label>
+                            <div class="form-group">
+                                <button id="btnAddStudent" onclick="addStudentTable()" type="button" class="btn btn-info"><i class="fas fa-plus-circle"></i> Adicionar Aluno</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-hover" id="tblStudent">
+                    <thead>
+                        <tr>
+                            <th class="bg-info">#</th>
+                            <th class="bg-info">Cód</th>
+                            <th class="bg-info">Nome</th>
+                            <th class="bg-info">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <h3 style="padding-top:15px"><i class="far fa-file-alt"></i> Plano de Ensino</h3>
+
+    <div class="panel">
+        <div class="panel-body">
+            <div style="padding-left:30px; padding-right:30px">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label> Descrição da atividade: </label>
+                            @Html.EditorFor(model => model.TeachingPlan.activityDescription, new { HtmlAttributes = new { @class = "form-control", @placeholder = "Atividade: Pintando o alfabeto", @id = "activityDescription" } })
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div style="text-align: left;">
+                            <label><br /></label>
+                            <div class="form-group">
+                                <button id="btnTeachingPlan" onclick="addTeachingPlanTable()" type="button" class="btn btn-info"><i class="fas fa-plus-circle"></i> Adicionar </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-hover" id="tblTeachingPlan">
+                    <thead>
+                        <tr>
+                            <th class="bg-info">#</th>
+                            <th class="bg-info">Descrição da atividade</th>
+                            <th class="bg-info">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-lg btn-info pull-right">
+        <i class="fas fa-save"></i>
+        Salvar Turma
+    </button>
+}
+
+<script>
+    var contStudent = 0;
+    var contTeachingPlan = 0;
+
+    function addStudentTable() {
+        var idStudent = $("#student option:selected").val();
+        var nameStudent = $("#student option:selected").text();
+
+        contStudent++;
+
+        var tr = $('<tr></tr>');
+
+        tr.append('<td>' + contStudent + '</td>');
+        tr.append('<td>' + idStudent + '</td>');
+        tr.append('<td>' + nameStudent + '</td>');
+        tr.append('<td><button class="btn btn-xs btn-danger" onclick="removeStudent(this)" type="button"><i class="fas fa-minus-circle"></i> Remover</button></td>');
+
+        $("#tblStudent").append(tr);
+    }
+
+    function addTeachingPlanTable() {
+        var activityDescription = $("#activityDescription").val();
+
+        contTeachingPlan++;
+
+        var tr = $('<tr></tr>');
+
+        tr.append('<td>' + contTeachingPlan + '</td>');
+        tr.append('<td>' + activityDescription + '</td>');
+        tr.append('<td><button class="btn btn-xs btn-danger" onclick="removeTeachingPlan(this)" type="button"><i class="fas fa-minus-circle"></i> Remover</button></td>');
+
+        $("#tblTeachingPlan").append(tr);
+
+        $("#activityDescription").val("");
+        $("#activityDescription").focus();
+    }
+
+
+    function removeStudent(handler) {
+        var tr = $(handler).closest('tr');
+
+        tr.fadeOut(300, function () {
+            tr.remove();
+        });
+    };
+
+    function removeTeachingPlan(handler) {
+        var tr = $(handler).closest('tr');
+
+        tr.fadeOut(300, function () {
+            tr.remove();
+        });
+    };
+
+    $('#formClassroom').unbind('submit').bind('submit', function (e) {
+        e.preventDefault();
+
+        if (!$(this).valid()) {
+            return false;
+        }
+        else {
+            var form = new Object();
+            form.listClassroomStudent = new Array();
+            form.listTeachingPlan = new Array();
+
+            form.idLoginAccess = $("#idLoginAccess").val();
+            form.nameClassroom = $("#nameClassroom").val();
+            form.shiftClassroom = $("#shiftClassroom").val();
+
+            $('#tblStudent > tbody > tr').each(function (i, linha) {
+                var obj = new Object();
+
+                obj.idStudent = $(linha).find('td:eq(1)').text();
+
+                form.listClassroomStudent.push(obj);
+            });
+
+            $('#tblTeachingPlan > tbody > tr').each(function (i, linha) {
+                var obj = new Object();
+
+                obj.activityDescription = $(linha).find('td:eq(1)').text();
+
+                form.listTeachingPlan.push(obj);
+            });
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '../Classroom/CreateClassroom',
+                data: JSON.stringify({ form: form }),
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    if (data.type === 0) {
+                        confirmMsgSuccess(data.msg, '../Classroom/ListClassroom');
+                    }
+                    else if (data.type === 1) {
+                        confirmMsgWarning(data.msg);
+                    }
+                    else {
+                        confirmMsgError(data.msg);
+                    }
+                },
+                error: function (request, status, error) {
+                    confirmMsgError("Erro desconhecido");
+                }
+            });
+        }
+    });
+</script>

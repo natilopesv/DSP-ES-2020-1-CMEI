@@ -1,0 +1,19 @@
+﻿<!--Alert Messages-->
+@if (ViewBag.MessageType == DSP_ES_2020_1_CMEI.Enums.MessageType.Error)
+{
+    <div class="alert alert-danger" role="alert">
+        Ops! @ViewBag.Message
+    </div>
+}
+else if (ViewBag.MessageType == DSP_ES_2020_1_CMEI.Enums.MessageType.Warning)
+{
+    <div class="alert alert-warning" role="alert">
+        Atenção! @ViewBag.Message
+    </div>
+}
+else if (ViewBag.MessageType == DSP_ES_2020_1_CMEI.Enums.MessageType.Success)
+{
+    <div class="alert alert-warning" role="alert">
+        OK! @ViewBag.Message
+    </div>
+}

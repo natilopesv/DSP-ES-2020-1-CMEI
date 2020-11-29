@@ -16,7 +16,7 @@ namespace DSP_ES_2020_1_CMEI
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "StudentsRoutine", id = UrlParameter.Optional }
             );
         }
     }

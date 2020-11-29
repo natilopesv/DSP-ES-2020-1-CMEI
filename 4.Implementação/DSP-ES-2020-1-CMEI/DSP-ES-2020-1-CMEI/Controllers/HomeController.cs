@@ -13,10 +13,8 @@ namespace DSP_ES_2020_1_CMEI.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult StudentsRoutine()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 

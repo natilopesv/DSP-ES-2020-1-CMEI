@@ -1,0 +1,55 @@
+﻿@model DSP_ES_2020_1_CMEI.Models.ClassroomModel
+
+@{
+    ViewBag.Title = "ListClassroom";
+}
+
+<br />
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Minhas Turmas</h2>
+    </div>
+
+    <div class="col-md-6">
+        <a href="../Classroom/CreateClassroom" class="btn btn-lg btn-info pull-right">
+            <i class="fas fa-plus-circle"></i>
+            Nova Turma
+        </a>
+    </div>
+</div>
+<hr />
+
+@if (Model == null || Model.listClassroomModel == null || Model.listClassroomModel.Count == 0)
+{
+    <div class="row">
+        <div class="col-md-12 text-center" style="color:rgba(128, 128, 128, 0.50);">
+            <i class="fas fa-child" style="font-size:120px"></i>
+            <br />
+            <h3>Você não ainda não têm turmas...</h3>
+            <p>Clique em 'Nova Turma' e insira sua primeira Turma</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+
+        @foreach (var item in Model.listClassroomModel)
+        {
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <h4 class="text-info" style="font-weight:bold"><i class="fas fa-child"></i> @item.nameClassroom</h4>
+                            <hr />
+                            <p><strong>Total de Alunos:</strong> @item.totalStudentsModel</p>
+                            <p><strong>Turno:</strong> @item.shiftClassroom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+}
