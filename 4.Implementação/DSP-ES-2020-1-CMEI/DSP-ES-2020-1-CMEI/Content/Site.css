@@ -15,3 +15,7 @@
 .dl-horizontal dt {
     white-space: normal;
 }
+
+.modal.in .modal-dialog {
+    z-index: 99999 !important;
+}

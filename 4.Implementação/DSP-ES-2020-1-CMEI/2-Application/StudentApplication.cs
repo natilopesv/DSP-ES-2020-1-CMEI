@@ -47,7 +47,7 @@ namespace _2_Application
 
                     context.AddParameter("@Action", 1);
 
-                    //Adicionar Parametros
+                    
                     foreach (SqlParameter itemParametros in context.parameterCollection)
                     {
                         cmd.Parameters.Add(new SqlParameter(itemParametros.ParameterName, itemParametros.Value));

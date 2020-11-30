@@ -35,7 +35,6 @@
                             <th class="bg-info">Cód</th>
                             <th class="bg-info">Descrição</th>
                             <th class="bg-info">Nota</th>
-                            <th class="bg-info">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,11 +44,7 @@
                                 <td>@(i + 1)</td>
                                 <td>@Model.listEvaluateStudentGrade[i].idTeachingPlan</td>
                                 <td>@Model.listEvaluateStudentGrade[i].TeachingPlan.activityDescription</td>
-                                <td>
-                                    <input type="tel" class="form-control" id="grade-@Model.listEvaluateStudentGrade[i].idTeachingPlan"
-                                           value="@Model.listEvaluateStudentGrade[i].grade" placeholder="0-10">
-                                </td>
-                                <td><button class="btn btn-xs btn-danger" onclick="removeEvaluateStudentGrade(this)" type="button"><i class="fas fa-minus-circle"></i> Remover</button></td>
+                                <td>@Model.listEvaluateStudentGrade[i].grade</td>
                             </tr>
                         }
                     </tbody>
@@ -58,19 +53,9 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-offset-7 col-md-2">
-            <a href="javascript:history.back()" class="btn btn-lg btn-default pull-right">
-                Voltar para Avaliações
-            </a>
-        </div>
-        <div class="col-md-3">
-            <button type="submit" class="btn btn-lg btn-block btn-info pull-right">
-                <i class="fas fa-save"></i>
-                Salvar Avaliação
-            </button>
-        </div>
-    </div>
+    <a href="javascript:history.back()" class="btn btn-lg btn-default pull-right">
+        Voltar para Avaliações
+    </a>
 }
 
 <script src="~/Scripts/Project/ApplyEvaluation.js"></script>

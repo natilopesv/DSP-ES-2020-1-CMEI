@@ -30,7 +30,7 @@
                         <label><br /></label>
                         <div class="form-group">
                             <button id="btnListEvaluateStudent" type="submit" class="btn btn-info"><i class="fas fa-search"></i> Pesquisar</button>
-                            <button id="btnGenerateReport" type="button" class="btn btn-primary"><i class="fas fa-tasks"></i> Gerar relatório</button>
+                            <button id="btnGenerateReport" type="button" class="btn btn-primary" onclick="generateEvaluation()"><i class="fas fa-tasks"></i> Gerar relatório</button>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,10 @@
                                 <td>@item.ClassroomModel.ClassroomStudent.Student.nameStudent</td>
                                 <td>@item.ClassroomModel.nameClassroom</td>
                                 <td>@item.percEvaluateModel %</td>
-                                <td><a class="btn btn-xs btn-info" href="../EvaluateStudent/ApplyEvaluation?idStudent=@item.idStudent&idClassroom=@item.idClassroom"><i class="far fa-edit"></i> Avaliar</a></td>
+                                <td>
+                                    <a class="btn btn-xs btn-info" href="../EvaluateStudent/ApplyEvaluation?idStudent=@item.idStudent&idClassroom=@item.idClassroom"><i class="far fa-edit"></i> Avaliar</a>
+                                    <a class="btn btn-xs btn-primary" href="../EvaluateStudent/ReadEvaluation?idStudent=@item.idStudent&idClassroom=@item.idClassroom"><i class="fas fa-eye"></i> Visualizar</a>
+                                </td>
 
                                 <td style="display:none">@item.idStudent</td>
                                 <td style="display:none">@item.idClassroom</td>
@@ -76,3 +79,6 @@
         </div>
     </div>
 }
+
+<a id='relatorioAvaliacao' style="display:none;" download="relatorioAvaliacao.txt"></a>
+<script src="~/Scripts/Project/ListEvaluateStudent.js"></script>

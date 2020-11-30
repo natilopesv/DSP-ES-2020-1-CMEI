@@ -1,0 +1,96 @@
+﻿@model DSP_ES_2020_1_CMEI.Models.ClassroomModel
+
+@{
+    ViewBag.Title = "ReadClassroom";
+}
+
+<br />
+<h3><i class="fas fa-file-signature"></i> Dados da Turma</h3>
+
+<div class="panel">
+    <div class="panel-body">
+        <div style="padding-left:30px; padding-right:30px">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label> Nome da turma: </label>
+                        @Html.EditorFor(model => model.nameClassroom, new { HtmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>* Turno: </label>
+                        @Html.DropDownListFor(model => model.shiftClassroom, new List<SelectListItem>
+                        {
+                            new SelectListItem{Text = "Matutino", Value = "Matutino"},
+                            new SelectListItem{Text = "Vespertino", Value = "Vespertino"},
+                            new SelectListItem{Text = "Noturno", Value = "Noturno"},
+                        }, "Selecione", new { @class = "form-control form-control-sm", @disabled = "disabled" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 style="padding-top:15px"><i class="fas fa-users"></i> Alunos da Turma</h3>
+
+<div class="panel">
+    <div class="panel-body">
+        <div style="padding-left:30px; padding-right:30px">
+            <table class="table table-hover" id="tblStudent">
+                <thead>
+                    <tr>
+                        <th class="bg-info">#</th>
+                        <th class="bg-info">Cód</th>
+                        <th class="bg-info">Nome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.listClassroomStudent.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i+1)</td>
+                            <td>@Model.listClassroomStudent[i].idStudent</td>
+                            <td>@Model.listClassroomStudent[i].Student.nameStudent</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<h3 style="padding-top:15px"><i class="far fa-file-alt"></i> Plano de Ensino</h3>
+
+<div class="panel">
+    <div class="panel-body">
+        <div style="padding-left:30px; padding-right:30px">
+            <table class="table table-hover" id="tblTeachingPlan">
+                <thead>
+                    <tr>
+                        <th class="bg-info">#</th>
+                        <th class="bg-info">Cód</th>
+                        <th class="bg-info">Descrição da atividade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.listTeachingPlan.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i+1)</td>
+                            <td>@Model.listTeachingPlan[i].idTeachingPlan</td>
+                            <td>@Model.listTeachingPlan[i].activityDescription</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<a href="javascript:history.back()" class="btn btn-lg btn-default pull-right">
+    Voltar para minhas Turmas
+</a>

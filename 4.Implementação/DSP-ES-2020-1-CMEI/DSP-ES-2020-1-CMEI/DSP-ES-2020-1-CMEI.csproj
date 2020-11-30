@@ -195,6 +195,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\MessageConfirm.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Project\ApplyEvaluation.js" />
+    <Content Include="Scripts\Project\CrudClassroom.js" />
+    <Content Include="Scripts\Project\ListClassroom.js" />
+    <Content Include="Scripts\Project\ListEvaluateStudent.js" />
+    <Content Include="Scripts\Project\ListStudent.js" />
     <Content Include="Vendor\chosen\css\bootstrap-chosen.css" />
     <Content Include="Vendor\chosen\js\chosen.js" />
     <Content Include="Vendor\chosen\js\chosenResponsive.js" />
@@ -1728,8 +1733,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Vendor\fontawesome-free-5.6.3-web\less\brands.less" />
     <Content Include="Vendor\fontawesome-free-5.6.3-web\less\fontawesome.less" />
@@ -1794,6 +1797,10 @@
     <Content Include="Views\Shared\_Message.cshtml" />
     <Content Include="Views\Student\ListStudent.cshtml" />
     <Content Include="Views\EvaluateStudent\ApplyEvaluation.cshtml" />
+    <Content Include="Views\Classroom\UpdateClassroom.cshtml" />
+    <Content Include="Views\Classroom\DeleteClassroom.cshtml" />
+    <Content Include="Views\Classroom\ReadClassroom.cshtml" />
+    <Content Include="Views\EvaluateStudent\ReadEvaluation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

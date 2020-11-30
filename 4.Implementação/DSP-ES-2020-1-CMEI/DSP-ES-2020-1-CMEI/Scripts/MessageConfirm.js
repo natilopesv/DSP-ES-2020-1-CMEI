@@ -49,7 +49,7 @@ function confirmMsgWarning(msg) {
         animation: 'opacity',
         closeAnimation: 'opacity',
         animateFromElement: false,
-        type: 'oramge',
+        type: 'orange',
         buttons: {
             sim: {
                 text: 'OK', //Fecha o modal de alerta

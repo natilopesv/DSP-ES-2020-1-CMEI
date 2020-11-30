@@ -43,8 +43,18 @@ else
                         <div class="panel-body">
                             <h4 class="text-info" style="font-weight:bold"><i class="fas fa-child"></i> @item.nameClassroom</h4>
                             <hr />
-                            <p><strong>Total de Alunos:</strong> @item.totalStudentsModel</p>
-                            <p><strong>Turno:</strong> @item.shiftClassroom</p>
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p><strong>Total de Alunos:</strong> @item.totalStudentsModel</p>
+                                    <p><strong>Turno:</strong> @item.shiftClassroom</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-xs btn-block btn-primary" style="margin-top:5px" onclick="readClassroom(@item.idClassroom)"><i class="far fa-eye"></i> Visualizar</button>
+                                    <button class="btn btn-xs btn-block btn-info" style="margin-top:5px" onclick="updateClassroom(@item.idClassroom)"><i class="fas fa-edit"></i> Editar</button>
+                                    <button class="btn btn-xs btn-block btn-danger" style="margin-top:5px" onclick="deleteClassroom(@item.idClassroom)"><i class="fas fa-trash-alt"></i> Excluir</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -53,3 +63,9 @@ else
 
     </div>
 }
+
+<div class="modal" id="modal" role="dialog" data-backdrop="static" tabindex='-1'>
+
+</div>
+
+<script src="~/Scripts/Project/ListClassroom.js"></script>

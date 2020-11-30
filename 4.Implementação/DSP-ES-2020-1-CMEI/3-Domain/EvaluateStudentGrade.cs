@@ -6,7 +6,7 @@
 
         public int idTeachingPlan { get; set; }
 
-        public decimal grade { get; set; }
+        public decimal? grade { get; set; }
 
 
         public TeachingPlan TeachingPlan { get; set; }
