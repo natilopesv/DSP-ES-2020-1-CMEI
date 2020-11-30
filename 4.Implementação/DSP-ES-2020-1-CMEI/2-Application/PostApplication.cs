@@ -17,9 +17,9 @@ namespace _2_Application
             return mongoRepository.DownloadGridFsFile(imageId);
         }
 
-        public Post FindPostById(Guid guid)
+        public Post FindPostById(string id)
         {
-            var document = mongoRepository.FindDocumentById(new ObjectId(guid.ToString()));
+            var document = mongoRepository.FindDocumentById(new ObjectId(id));
 
             return FromBsonDocument(document);
         }
@@ -31,9 +31,9 @@ namespace _2_Application
             return documents.Select(FromBsonDocument).ToList();
         }
 
-        public List<Post> FindPostsByCmei(string idCmei)
+        public List<Post> FindPostsByCmeiName(string cmeiName)
         {
-            var filter = Builders<BsonDocument>.Filter.Eq("idCmei", idCmei);
+            var filter = Builders<BsonDocument>.Filter.Regex("idCmei", $".*{cmeiName}.*");
             var documents = mongoRepository.FindDocuments(filter);
 
             return documents.Select(FromBsonDocument).ToList();
@@ -48,7 +48,7 @@ namespace _2_Application
         {
             post.createdAt = DateTime.Now;
             post.createdBy = "Professor";
-            post.idCmei = "061300000324";
+            // post.cmeiName = "061300000324";
             var document = ToBsonDocument(post);
             mongoRepository.InsertDocument(document);
         }
@@ -57,10 +57,11 @@ namespace _2_Application
         {
             var bsonDocument = new BsonDocument
             {
-                {"idCmei", post.idCmei},
+                {"idCmei", post.cmeiName},
                 {"createdAt", post.createdAt},
                 {"createdBy", post.createdBy},
                 {"title", post.title},
+                {"description", post.description},
                 {"content", post.content},
             };
             if (post.imageId != null)
@@ -76,10 +77,11 @@ namespace _2_Application
             var post = new Post
             {
                 id = document.GetValue("_id").ToString(),
-                idCmei = document.GetValue("idCmei").ToString(),
+                cmeiName = document.GetValue("idCmei").ToString(),
                 createdAt = document.GetValue("createdAt").ToLocalTime(),
                 createdBy = document.GetValue("createdBy").ToString(),
                 title = document.GetValue("title").ToString(),
+                description = document.GetValue("description").ToString(),
                 content = document.GetValue("content").ToString(),
             };
             if (document.Contains("imageId"))

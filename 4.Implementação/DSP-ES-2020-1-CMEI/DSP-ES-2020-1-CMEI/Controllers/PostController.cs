@@ -35,10 +35,19 @@ namespace DSP_ES_2020_1_CMEI.Controllers
         [HttpGet]
         public ActionResult CreatePost()
         {
-            PostModel postModel = new PostModel();
-            ViewBag.cmeiList = new SelectList(postModel.FetchCmeis(), "id", "name");
+            var postModel = new PostModel();
+            ViewBag.cmeiList = new SelectList(postModel.FetchCmeis(), "name", "name");
 
             return View();
+        }
+
+        [CustomAuthorize]
+        [HttpGet]
+        public ActionResult ShowPost(string postId)
+        {
+            var postModel = postApplication.FindPostById(postId);
+
+            return View(postModel);
         }
 
         [CustomAuthorize]

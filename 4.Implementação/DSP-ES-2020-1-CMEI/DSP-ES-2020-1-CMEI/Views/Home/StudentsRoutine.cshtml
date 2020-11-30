@@ -9,11 +9,12 @@
     <i class="text-muted">Veja as publicações de hoje, e acompanhe o dia a dia do seu filho...</i>
     <hr/>
 
-    <form>
+    @using (Html.BeginForm("StudentsRoutine", "Home", FormMethod.Get, new {id = "formFilterCmei"}))
+    {
         <div class="row">
             <div class="col-md-7">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Pesquise um CMEI" id="txtSearch"/>
+                    <input type="text" class="form-control" placeholder="Pesquise um CMEI" id="txtSearch" name="filter"/>
                     <div class="input-group-btn">
                         <button class="btn btn-primary" type="submit">
                             <span class="glyphicon glyphicon-search"></span>
@@ -22,7 +23,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    }
 </div>
 
 <div class="row">
@@ -47,9 +48,11 @@
                                 </div>
 
                                 <div class="col-md-8">
-                                    <strong style="font-size:20px">@post.title</strong>
+                                    <strong style="font-size:20px">
+                                        <a href="../Post/ShowPost?postId=@post.id">@post.title</a>
+                                    </strong>
                                     <p style="margin-top:10px">
-                                        @post.content
+                                        @post.description
                                     </p>
                                 </div>
                             </div>
@@ -61,6 +64,13 @@
     }
     else
     {
-        <p>Nenhuma publicação...</p>
+        <div class="row">
+            <div class="col-md-12 text-center" style="color:rgba(128, 128, 128, 0.50);">
+                <i class="fas fa-child" style="font-size:120px"></i>
+                <br/>
+                <h3>Nenhuma atividade encontrada</h3>
+                <p>Aguarde novas atualizações...</p>
+            </div>
+        </div>
     }
 </div>

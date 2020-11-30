@@ -52,7 +52,7 @@ namespace _1_Repository
 
         public BsonDocument FindDocumentById(ObjectId objectId)
         {
-            var filter = Builders<BsonDocument>.Filter.Eq("id", objectId);
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", objectId);
             IFindFluent<BsonDocument, BsonDocument> findDocumentById = FindFluent(filter);
             return findDocumentById.First();
         }

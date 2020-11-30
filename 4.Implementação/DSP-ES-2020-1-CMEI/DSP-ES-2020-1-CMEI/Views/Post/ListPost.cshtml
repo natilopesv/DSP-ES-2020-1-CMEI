@@ -31,10 +31,10 @@
         <table class="table table-hover" id="tblPosts">
             <thead>
             <tr>
-                <th class="bg-info">Id</th>
-                <th class="bg-info">Id do CMEI</th>
+                <th class="bg-info">CMEI</th>
                 <th class="bg-info">Data cadastro</th>
                 <th class="bg-info">Responsavel cadastro</th>
+                <th class="bg-info">Descrição</th>
             </tr>
             </thead>
             <tbody>
@@ -43,10 +43,10 @@
                 foreach (var post in Model.posts)
                 {
                     <tr>
-                        <td>@post.id</td>
-                        <td>@post.idCmei</td>
+                        <td>@post.cmeiName</td>
                         <td>@string.Format("{0:dd/MM/yyyy}", post.createdAt)</td>
                         <td>@post.createdBy</td>
+                        <td>@post.description</td>
                     </tr>
                 }
             }

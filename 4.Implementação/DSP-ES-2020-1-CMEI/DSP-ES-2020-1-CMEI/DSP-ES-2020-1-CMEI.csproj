@@ -1790,6 +1790,7 @@
     <Content Include="Vendor\JqueryConfirm\js\jquery-confirm.min.js" />
     <Content Include="Views\Post\CreatePost.cshtml" />
     <Content Include="Views\Post\ListPost.cshtml" />
+    <Content Include="Views\Post\ShowPost.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -19,17 +19,21 @@
             <div style="padding-left:30px; padding-right:30px">
                 <div class="row">
                     <div class="col-md-8">
-                        @* <div class="form-group"> *@
-                        @*     <label>CMEI: </label> *@
-                        @*     @Html.DropDownListFor(model => model.idCmei, ViewBag.cmeiList as IEnumerable<SelectListItem>, "Selecione", new {@class = "form-control form-control-sm chosen-select", @id = "idCmei"}) *@
-                        @* </div> *@
+                        <div class="form-group">
+                            <label>CMEI: </label>
+                            @Html.DropDownListFor(model => model.cmeiName, ViewBag.cmeiList as IEnumerable<SelectListItem>, "Selecione", new {@class = "form-control form-control-sm chosen-select", @id = "idCmei"})
+                        </div>
                         <div class="form-group">
                             <label>Titulo: </label>
                             @Html.EditorFor(model => model.title, new {HtmlAttributes = new {@class = "form-control", @placeholder = "Titulo...", @required = "", @autofocus = ""}})
                         </div>
                         <div class="form-group">
+                            <label>Descrição breve: </label>
+                            @Html.EditorFor(model => model.description, new {HtmlAttributes = new {@class = "form-control", @placeholder = "Descrição da atividade...", @required = "", @autofocus = ""}})
+                        </div>
+                        <div class="form-group">
                             <label>Conteudo: </label>
-                            @Html.EditorFor(model => model.content, new {HtmlAttributes = new {@class = "form-control", @placeholder = "Atividade...", @required = "", @autofocus = ""}})
+                            @Html.EditorFor(model => model.content, new {HtmlAttributes = new {@class = "form-control", @placeholder = "Conteúdo...", @required = "", @autofocus = ""}})
                         </div>
                         <div class="form-group">
                             <label>Imagem: </label>

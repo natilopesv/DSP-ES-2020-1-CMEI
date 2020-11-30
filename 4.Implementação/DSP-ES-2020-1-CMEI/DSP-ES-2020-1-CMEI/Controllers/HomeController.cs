@@ -17,10 +17,18 @@ namespace DSP_ES_2020_1_CMEI.Controllers
             return View();
         }
 
-        public ActionResult StudentsRoutine()
+        public ActionResult StudentsRoutine(string filter)
         {
             StudentsRoutineModel model = new StudentsRoutineModel();
-            model.posts = postApplication.ListAllPosts();
+            if (!string.IsNullOrEmpty(filter))
+            {
+                model.posts = postApplication.FindPostsByCmeiName(filter);
+            }
+            else
+            {
+                model.posts = postApplication.ListAllPosts();
+            }
+
             return View(model);
         }
     }
