@@ -26,5 +26,7 @@
         public const string SuccessDeleteClassroom = "Sua Turma foi excluída...";
 
         public const string SuccessEvaluate = "Sua avaliação foi realizada...";
+        
+        public const string SuccessInsertPost = "Sua publicação foi inserida...";
     }
 }

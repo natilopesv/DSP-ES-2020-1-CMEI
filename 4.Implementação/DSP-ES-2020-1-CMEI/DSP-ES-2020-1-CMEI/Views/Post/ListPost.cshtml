@@ -1,0 +1,62 @@
+@model DSP_ES_2020_1_CMEI.Models.StudentsRoutineModel
+
+@{
+    ViewBag.Title = "ListPost";
+}
+
+<br/>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Lista de atividades</h2>
+    </div>
+
+    <div class="col-md-6">
+        <a href="../Post/CreatePost" class="btn btn-lg btn-info pull-right">
+            <i class="fas fa-plus-circle"></i>
+            Cadastrar nova atividade
+        </a>
+    </div>
+</div>
+
+@if (ViewBag.Message != null)
+{
+    <div class="row">
+        <div class="alert alert-info" role="alert">@ViewBag.Message</div>
+    </div>
+}
+
+<div class="panel">
+    <div class="panel-body">
+        <table class="table table-hover" id="tblPosts">
+            <thead>
+            <tr>
+                <th class="bg-info">Id</th>
+                <th class="bg-info">Id do CMEI</th>
+                <th class="bg-info">Data cadastro</th>
+                <th class="bg-info">Responsavel cadastro</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model != null && Model.posts != null && Model.posts.Count > 0)
+            {
+                foreach (var post in Model.posts)
+                {
+                    <tr>
+                        <td>@post.id</td>
+                        <td>@post.idCmei</td>
+                        <td>@string.Format("{0:dd/MM/yyyy}", post.createdAt)</td>
+                        <td>@post.createdBy</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" style="text-align:center">Nenhuma atividade cadastrada...</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

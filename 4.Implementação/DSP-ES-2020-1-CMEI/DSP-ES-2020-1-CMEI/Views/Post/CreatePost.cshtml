@@ -1,0 +1,57 @@
+﻿@model DSP_ES_2020_1_CMEI.Models.PostModel
+
+@{
+    ViewBag.Title = "CreatePost";
+}
+
+@using (Html.BeginForm("CreatePost", "Post", FormMethod.Post, new {id = "formCreatePost", enctype = "multipart/form-data"}))
+{
+    <br/>
+    <h3><i class="fas fa-file-signature"></i> Dados da Ativiade</h3>
+
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-danger" role="alert">@ViewBag.Message</div>
+    }
+
+    <div class="panel">
+        <div class="panel-body">
+            <div style="padding-left:30px; padding-right:30px">
+                <div class="row">
+                    <div class="col-md-8">
+                        @* <div class="form-group"> *@
+                        @*     <label>CMEI: </label> *@
+                        @*     @Html.DropDownListFor(model => model.idCmei, ViewBag.cmeiList as IEnumerable<SelectListItem>, "Selecione", new {@class = "form-control form-control-sm chosen-select", @id = "idCmei"}) *@
+                        @* </div> *@
+                        <div class="form-group">
+                            <label>Titulo: </label>
+                            @Html.EditorFor(model => model.title, new {HtmlAttributes = new {@class = "form-control", @placeholder = "Titulo...", @required = "", @autofocus = ""}})
+                        </div>
+                        <div class="form-group">
+                            <label>Conteudo: </label>
+                            @Html.EditorFor(model => model.content, new {HtmlAttributes = new {@class = "form-control", @placeholder = "Atividade...", @required = "", @autofocus = ""}})
+                        </div>
+                        <div class="form-group">
+                            <label>Imagem: </label>
+                            <input type="file" name="file" id="file"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-offset-8 col-md-2">
+            <a href="javascript:history.back()" class="btn btn-lg btn-default pull-right">
+                Cancelar
+            </a>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-lg btn-info pull-right">
+                <i class="fas fa-save"></i>
+                Salvar atividade
+            </button>
+        </div>
+    </div>
+}

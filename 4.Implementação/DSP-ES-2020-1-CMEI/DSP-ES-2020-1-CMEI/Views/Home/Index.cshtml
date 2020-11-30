@@ -8,9 +8,9 @@
         <i class="lead text-muted">Para entrar nos módulos, clique nas opções abaixo...</i>
     </div>
     <h2>
-        
+
     </h2>
-    <hr />
+    <hr/>
     <div class="row">
         <div class="col-md-4">
             <div class="panel" style="cursor:pointer;" onclick="student()">
@@ -20,7 +20,7 @@
                         <span class="glyphicon glyphicon-circle-arrow-right pull-right"></span>
                     </h3>
 
-                    <hr />
+                    <hr/>
                     Importe seus alunos para o sistema e visualize cada um deles...
                 </div>
             </div>
@@ -34,7 +34,7 @@
                         <span class="glyphicon glyphicon-circle-arrow-right pull-right"></span>
                     </h3>
 
-                    <hr />
+                    <hr/>
                     Forme suas turmas através dos alunos importados, e gere os relatórios...
                 </div>
             </div>
@@ -48,8 +48,22 @@
                         <span class="glyphicon glyphicon-circle-arrow-right pull-right"></span>
                     </h3>
 
-                    <hr />
+                    <hr/>
                     Avalie seus alunos, atribuindo notas a cada um deles...
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel" style="cursor:pointer;" onclick="posts()">
+                <div class="panel-body">
+                    <h3>
+                        &nbsp; Atividades dos alunos
+                        <span class="glyphicon glyphicon-circle-arrow-right pull-right"></span>
+                    </h3>
+
+                    <hr/>
+                    Registre atividades para divulgar o cotidiano dos alunos...
                 </div>
             </div>
         </div>
@@ -67,5 +81,9 @@
 
     function evaluateStudent() {
         window.location.href = '../EvaluateStudent/ListEvaluateStudent';
+    }
+
+    function posts() {
+        window.location.href = '../Post/ListPost';
     }
 </script>
